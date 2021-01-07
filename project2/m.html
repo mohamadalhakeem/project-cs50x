@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+    <link rel="stylesheet" href="../Static/style.css">
+    <link rel="stylesheet" href="../Static/m.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js"></script>
+    <title>Map</title>
+</head>
+  <div class="navbar">
+    <p>From D to G</p>
+    <ul>
+        <li><a href="index.html">Home</a></li>
+        <li class="active"><a href="../Template/testmap.html">Map</a></li>
+        <li><a href="about_us.html">About us</a></li>
+        <li><a href="login.html">Login</a></li>
+    </ul>
+  </div>
+<body>
+    <div class="container">
+    <div class="left">
+      <div class="header">
+        <h2 class="animation a1">Welcome to Baghdad map</h2>
+        <h4 class="animation a2">Get cuurent location</h4>
+        <button class="btn btn-primary" onclick="getLocation()">Get cuurent location</button>
+        <p id="maplc"></p>
+      </div>
+      <div class="form">
+         <div class="location">
+           <input autocomplete="off" autofocus class="form-control" name="longitude" placeholder="longitude" type="number">
+         </div>
+         <div class="location">
+          <input class="form-control" name="latitude" placeholder="latitude" type="number">
+         </div>
+         <div class="location">
+          <input class="form-control" name="plant" placeholder="plant name" type="text">
+         </div>
+      
+         <button class="animation a6" type="submit">get marker</button>
+       </div>
+    </div>
+    
+        <div id="map"></div>
+        
+     
+   </div>
+   <div class="chart">
+      <canvas id="mychart"></canvas>
+   </div>
+
+  <script>
+    function initMap(){
+        var options = {
+            zoom:11,
+            center:{lat:33.3152,lng:44.3661}
+        }
+        var map = new google.maps.Map(document.getElementById('map'),options)
+      
+      addmarker({
+        coords:{lat:33.29358112292162,lng:44.417494483479345},
+        content:'<h1>mohammed ali</h1>'
+      });
+      addmarker({
+        coords:{lat:33.36988247930407,lng:44.43122739273846},
+        content:'<h1>Aymen Raeed</h1>'
+      });
+      addmarker({
+        coords:{lat:33.3347519983913,lng:44.338701910869986},
+        content:'<h1>ahmed ali</h1>' +
+        '<img src="../Screen_Shot/profile_pic1.jpg" class="d-block1" alt="...">'+
+        '<h4>planted Orange Tree</h4>'+
+        '<img src="../Screen_Shot/planting.jpg" class="d-block1" alt="...">'
+      });
+      
+      function addmarker(props){
+        var marker = new google.maps.Marker({
+            position:props.coords,
+            map:map,
+            animation: google.maps.Animation.DROP,
+            icon:'../Screen_Shot/t4.png'
+        });
+
+        var infowindow = new google.maps.InfoWindow({
+          content: props.content,
+        });
+        marker.addListener("click", () => {
+          infowindow.open(map, marker);
+        });
+
+      }
+      var myLineChart = new Chart(ctx, {
+      type: 'line',
+      data: data,
+      options: options
+  });
+      
+    }
+    
+</script>
+
+<script>
+var maplc = document.getElementById("maplc");
+
+function getLocation() {
+if (navigator.geolocation) {
+  navigator.geolocation.getCurrentPosition(showPosition);
+} else { 
+  maplc.innerHTML = "Geolocation is not supported by this browser.";
+}
+}
+
+function showPosition(position) {
+maplc.innerHTML = "Latitude: " + position.coords.latitude + 
+"<br>Longitude: " + position.coords.longitude;
+}
+</script>
+
+<script>
+var mychart = document.getElementById('mychart').getContext('2d');
+
+let masspopchart = new Chart(mychart, {
+type:'bar',
+data:{
+  labels:['boston', 'warcester', 'springdield', 'lowell', 'cambridge', 'new bedford'],
+  datasets:[{
+    lebel:'population',
+    data:[
+    100,
+    200,
+    300,
+    400,
+    500,
+    600		
+    ],
+     backgroundColor: [
+          'rgba(255, 99, 132, 0.2)',
+          'rgba(54, 162, 235, 0.2)',
+          'rgba(255, 206, 86, 0.2)',
+          'rgba(75, 192, 192, 0.2)',
+          'rgba(153, 102, 255, 0.2)',
+          'rgba(255, 159, 64, 0.2)'
+      ],
+      borderColor: [
+          'rgba(255, 99, 132, 1)',
+          'rgba(54, 162, 235, 1)',
+          'rgba(255, 206, 86, 1)',
+          'rgba(75, 192, 192, 1)',
+          'rgba(153, 102, 255, 1)',
+          'rgba(255, 159, 64, 1)'
+      ],
+      borderWidth: 1,
+      hoverBorderWidth:3,
+      
+  }]
+
+},
+options:{}
+});
+
+</script>
+
+<script>
+var mychart = document.getElementById('mychart').getContext('2d');
+
+var masspopchart = new Chart(mychart, {
+type:'bar',
+data:{
+  labels:['boston', 'warcester', 'springdield', 'lowell', 'cambridge', 'new bedford'],
+  datasets:[{
+    lebel:'population',
+    data:[
+    100,
+    200,
+    300,
+    400,
+    500,
+    600		
+    ],
+     backgroundColor: [
+          'rgba(255, 99, 132, 0.2)',
+          'rgba(54, 162, 235, 0.2)',
+          'rgba(255, 206, 86, 0.2)',
+          'rgba(75, 192, 192, 0.2)',
+          'rgba(153, 102, 255, 0.2)',
+          'rgba(255, 159, 64, 0.2)'
+      ],
+      borderColor: [
+          'rgba(255, 99, 132, 1)',
+          'rgba(54, 162, 235, 1)',
+          'rgba(255, 206, 86, 1)',
+          'rgba(75, 192, 192, 1)',
+          'rgba(153, 102, 255, 1)',
+          'rgba(255, 159, 64, 1)'
+      ],
+      borderWidth: 1,
+      hoverBorderWidth:3,
+      
+  }]
+
+},
+options:{}
+});
+
+</script>
+
+<script defer
+src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC4XCdiTzXd9Fn2ZPRg_kjpi_OXZQ10mr8&callback=initMap">
+</script>
+  
+
+</body>
+</html>
